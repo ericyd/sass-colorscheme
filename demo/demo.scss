@@ -1,0 +1,13 @@
+@import "../generator";
+
+$seed-color: #FFA000;
+$colorscheme: generate($seed-color, $scheme: 'mono');
+
+
+h1 {
+    background: $primary;
+    color: $primary--lighter;
+    font: $primary--lightest;
+    color3: $primary--darker;
+    color4: $primary--darkest;
+}

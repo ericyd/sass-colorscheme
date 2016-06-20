@@ -1,0 +1,29 @@
+{
+  "name": "sass-colorscheme-generator",
+  "version": "0.1.0",
+  "description": "Color scheme generator for plug-and-play use with Sass and SCSS stylesheets",
+  "main": "generator.scss",
+  "scripts": {
+    "demo": "node-sass --output-style compressed demo/demo.scss demo/demo.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericyd/sass-colorscheme-generator.git"
+  },
+  "keywords": [
+    "sass",
+    "colorscheme",
+    "color",
+    "scheme",
+    "generator"
+  ],
+  "author": "Eric Dauenhauer",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ericyd/sass-colorscheme-generator/issues"
+  },
+  "homepage": "https://github.com/ericyd/sass-colorscheme-generator#readme",
+  "devDependencies": {
+    "node-sass": "^3.8.0"
+  }
+}
