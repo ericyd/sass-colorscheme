@@ -1,9 +1,9 @@
-/**
- * Generate the 'complementary' color scheme
- *
- * @param {color} $seed Base color on which to generate the scheme
- * @return {map} $colors Map of $primary and variants for the mono scheme
- */
+///
+/// Generate the 'complementary' color scheme
+///
+/// @param {color} $seed Base color on which to generate the scheme
+/// @return {map} $colors Map of $primary and variants for the mono scheme
+///
  
 @import "generate-mono";
  

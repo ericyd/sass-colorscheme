@@ -1,2 +1,127 @@
-# sass-colorscheme-generator
-Color scheme generator for Sass
+# Sass color scheme generator
+Color scheme generator for Sass.  Based on http://colorschemedesigner.com/csd-3.5 and [color-scheme](https://www.npmjs.com/package/color-scheme), but unique in it's output and focus on ease of use.
+
+
+
+## Installation
+
+Install package with NPM and add it to your development dependencies:
+
+`npm install --save-dev sass-colorscheme-generator`
+
+
+
+## Usage
+
+Import the `scss` file from any other Sass file, and assign a variable to the function's output:
+
+```sass
+@import "node_modules/sass-colorscheme-generator/generator";
+$seed-color: #ffd040;
+$colorscheme: colorscheme-generator($seed: $seed-color, $global: true, $scheme: 'mono');
+
+h1 {
+    color: $primary; // #ffd040
+    background: $primary-lightest; // #
+    border: 1px solid $primary-darkest; // #
+}
+```
+Or, if variables are not global  
+
+```sass
+@import "node_modules/sass-colorscheme-generator/generator";
+$seed-color: #ffd040;
+$colorscheme: colorscheme-generator($seed: $seed-color, $global: false, $scheme: 'mono');
+
+h1 {
+    color: map-get($colorscheme, '$primary'); // #ffd040
+    background: map-get($colorscheme, '$primary-lightest'); // #
+    border: 1px solid map-get($colorscheme, '$primary-darkest'); // #
+}
+```
+
+Note that the keys used with `map-get` are _identical_ to the global variable names. 
+
+
+
+## Syntax
+
+### colorscheme-generator($seed, $global[, $scheme][, $distance][, $variation][, $complement])
+
+* `$seed` color
+
+    Color on which to base the color scheme.  Can be any hex or named color value.
+    To use RGB or HSL values, use the built-in `rgb()` or `hsl()` functions.
+    
+* `$global` boolean - _Default: true_ - (Optional)
+
+    Assign color scheme output to global variables.  
+    True results in variables that are set in the global namespace and can be accessed by any `sass` file that imports this script.  
+    False results in no additional global variables.  To access the colors, you must use `map-get($colorscheme, '$key')`.
+    
+* `$scheme` string - _Default: 'mono'_ - (Optional)
+
+    The color scheme to generate.  Accepted values are
+    
+    * `mono` A monochromatic color scheme
+    * `triad` A color scheme with three main colors. The two secondary colors are adjacent to the complement of the `$seed` color
+    * `complementary` A color scheme based on the seed and it's complement
+    * `tetrad` A color scheme with four main colors.  Two colors are the seed and the complement, plus one value adjacent to the seed and one value adjacent to the complement.
+    * `analogic` A color scheme with three main colors. The two secondary colors are adjacent to the `$seed` color.  Can optionally include the complement (see [`$complement`](#syntax)) 
+
+* `$distance` number 0 - 1, inclusive - _Default: 0.3_ - (Optional)
+
+    The distance separating the secondary values from the seed and complement.  Only valid for `triad`, `tetrad`, and `analogic`.
+    A larger number increases the amount of separation between colors, where 1 is maximum separation.  
+    Used with `tetrad`, a distance of 1 will result in 4 evenly spaces hues around the color circle.  That is, each hue will be offset from the other by 90 degrees.  A distance of 0 will result in the same output as the `complementary` scheme.
+    For `triad` and `analogic`, A distance of 1 will result in the same scheme: the seed, plus two colors that are evenly spaces between the seed and it's complement.
+    For `triad`, a distance of 0 will result in the same scheme as `complementary`.
+    For `analogic`, a distance of 0 will result in the same scheme as `mono`.
+    
+* `variation` string - _Default: 'none'_ - (Optional)
+
+    Variations on the generated color scheme.  Accepted values are
+    
+    * ``
+    * ``
+    * ``
+
+* `complement` boolean - _Default: false_ - (Optional)
+
+    Include the complement on the `analogic` color scheme.  Has no effect when used with other schemes. 
+
+
+## Output
+
+The script generates a minimum of 5 colors (when `$scheme: 'mono'`), and a maximum of 20 colors (when `$scheme: 'tetrad'` or `$scheme: 'analogic', $complement: true`).
+The base color variable names are
+
+* `$primary`
+* `$secondaryA`
+* `$secondaryB`
+* `$complementary`
+
+The color variants are
+
+* `{base}--lighter`
+* `{base}--lightest`
+* `{base}--darker`
+* `{base}--darkest`
+
+The output varies depending on the selected $scheme:
+
+* `mono` returns `$primary` and all variants
+* `complementary` returns `$primary` and `$complementary` with all variants 
+* `triad` returns `$primary`, `$secondaryA`, `$secondaryB` and all variants
+* `tetrad` returns all four base variables and all variants
+* `analogic` with `$complement: false` returns `$primary`, `$secondaryA`, `$secondaryB` and all variants
+* `analogic` with `$complement: true` returns all four base variables and all variants
+
+
+
+* variable arguments - only pass what you want
+* sets global color variables (could be optional!!!!0
+* also returns map, get with `map-get()`
+* seed should be able to accept hex or named string
+* options:
+* defaults:

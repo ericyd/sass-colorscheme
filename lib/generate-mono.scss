@@ -1,10 +1,10 @@
-/**
- * Generate the 'mono' color scheme
- *
- * @param {color} $seed Base color on which to generate the scheme
- * @param {string} $name Variable name on which to generate the map, Default: '$primary'
- * @return {map} $colors Map of $primary and variants for the mono scheme
- */
+///
+/// Generate the 'mono' color scheme
+///
+/// @param {color} $seed Base color on which to generate the scheme
+/// @param {string} $name Variable name on which to generate the map, Default: '$primary'
+/// @return {map} $colors Map of $primary and variants for the mono scheme
+///
 @function generate-mono($seed, $name: '$primary') {
     @return (inspect($name): $seed,
             str-insert($name, '--lighter', str-length($name) + 1): lighten($seed, 12.5%),
