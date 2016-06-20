@@ -1,0 +1,84 @@
+/**
+ * Validates that a passed argument matches one of the accepted values
+ *
+ * @param {string | color} passed Value that is passed into the function
+ * @param {list} accepted List of accepted values
+ * @return {boolean} true if accepted, false if not accepted
+ */
+ 
+// Note: Warnings are being used because output of @errors in node-sass are very non-human-readable
+
+@function validate-scheme($scheme) {
+    $acceptable: ('mono', 'complementary', 'triad', 'tetrad', 'analogic');
+    @if index($acceptable, $scheme) == null {
+        @warn "$scheme must be 'mono', 'complementary', 'triad', 'tetrad', or 'analogic'.  No colors will be output.";
+        @return false;
+    }
+    @return true;
+}
+
+@function validate-variation($variation) {
+    $acceptable: ('pastel', 'soft', 'light', 'hard', 'pale', 'none');
+    @if index($acceptable, $variation) == null {
+        @warn "$variation must be 'pastel', 'soft', 'light', 'hard', 'pale', or 'none'.  Variation will default to 'none'.";
+        @return false;
+    }
+    @return true;
+}
+
+@function validate-distance($distance, $scheme) {
+    @if type-of($distance) != number {
+        @if $distance < 0 {
+            @if $distance > 1 {
+                @warn "$distance must be a number between 0 and 1 (inclusive)";
+                @return false;
+            }
+        }        
+    }
+    
+    /* Warn if $distance is being used with scheme other than triad, tetrad, or analogic */
+    @if $distance != 0.3 {
+        @if $scheme != 'triad' { 
+            @if $scheme != 'tetrad' {
+                @if $scheme != 'analogic' {
+                    @warn "$distance will have no effect unless used with schemes 'triad', 'tetrad', or 'analogic'";
+                    @return false;
+                }
+            }
+        }
+    }
+    @return true;
+}
+
+
+@function validate-complement($complement, $scheme) {
+    @if type-of($complement) != bool {
+        @warn "$complement must be a boolean. Ignoring...";
+        @return false;
+    }
+    
+    /* Warn if $complement is being used with scheme other than analogic */
+    @if $complement != false {
+        @if $scheme != 'analogic' {
+            @warn "$complement will have no effect unless used with 'analogic' scheme";
+            @return false;
+        }
+    }
+    @return true;
+}
+
+@function validate-seed($seed) {
+    @if type-of($seed) != color {
+        @warn "$seed must be a color.  To use RGB or HSL values, please use the built-in `rgb()` and `hsl()` functions.";
+        @return false;
+    }
+    @return true;
+}
+
+@function validate-global($global) {
+    @if type-of($global) != bool {
+        @warn "$global must be a boolean";
+        @return false;
+    }
+    @return true;
+}
