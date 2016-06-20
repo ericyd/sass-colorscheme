@@ -1,0 +1,26 @@
+@import "../node_modules/sass-true/sass/_true";
+@import "../lib/generate-mono";
+
+@include test-module('generate-mono') {
+
+  // Testing Functions
+  @include test('Generate 5 monochromatic colors from 1 input') {
+    $seed: #ff40d0;
+
+    $test: inspect(generate-mono($seed));
+    $expect: inspect(('$primary':#ff40d0,'$primary--lighter':#ff80e0,'$primary--lightest':#ffc0ef,'$primary--darker':#ff00c0,'$primary--darkest':#c00090));
+    @include assert-equal($test, $expect,
+      'Returns a map with color values');
+  }
+  
+  @include test('Generate mono colors with named keys') {
+    $seed: #ff40d0;
+    $name: '$secondary-a';
+
+    $test: inspect(generate-mono($seed, $name));
+    $expect: inspect(('$secondary-a':#ff40d0,'$secondary-a--lighter':#ff80e0,'$secondary-a--lightest':#ffc0ef,'$secondary-a--darker':#ff00c0,'$secondary-a--darkest':#c00090));
+    @include assert-equal($test, $expect,
+      'Returns a map with color values');
+  }
+
+}

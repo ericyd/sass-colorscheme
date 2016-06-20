@@ -4,7 +4,8 @@
   "description": "Color scheme generator for plug-and-play use with Sass and SCSS stylesheets",
   "main": "generator.scss",
   "scripts": {
-    "demo": "node-sass --output-style compressed demo/demo.scss demo/demo.css"
+    "demo": "node-sass --output-style compressed demo/demo.scss demo/demo.css",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,8 @@
   },
   "homepage": "https://github.com/ericyd/sass-colorscheme-generator#readme",
   "devDependencies": {
-    "node-sass": "^3.8.0"
+    "mocha": "^2.5.3",
+    "node-sass": "^3.8.0",
+    "sass-true": "^2.0.3"
   }
 }

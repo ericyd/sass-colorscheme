@@ -1,7 +1,8 @@
 @import "../generator";
+@import "demo-settings";
 
 $seed-color: #FFA000;
-$colorscheme: generate($seed-color, $scheme: 'mono');
+$colorscheme: generate($demo-settings...);
 
 
 h1 {
