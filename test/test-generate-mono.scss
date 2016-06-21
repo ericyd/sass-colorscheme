@@ -4,23 +4,60 @@
 @include test-module('generate-mono') {
 
   // Testing Functions
+  @include test('Keys should be named with appropriate variants') {
+    $seed: #ff40d0;
+
+    $test: generate-mono($seed);
+    $expect: ('$primary','$primary--lighter','$primary--lightest','$primary--darker','$primary--darkest');
+    @include assert-equal(map-keys($test), $expect,
+      'Returns a map with keys based on string "$primary" and variants');
+  }
+  
+  
+  
+  
   @include test('Generate 5 monochromatic colors from 1 input') {
     $seed: #ff40d0;
 
-    $test: inspect(generate-mono($seed));
-    $expect: inspect(('$primary':#ff40d0,'$primary--lighter':#ff80e0,'$primary--lightest':#ffc0ef,'$primary--darker':#ff00c0,'$primary--darkest':#c00090));
-    @include assert-equal($test, $expect,
-      'Returns a map with color values');
+    $test: generate-mono($seed);
+    @include assert-equal(length($test), 5,
+      'Returns a map with 5 color values');
   }
   
-  @include test('Generate mono colors with named keys') {
+  
+  
+  
+  @include test('Change key names when $name is input') {
     $seed: #ff40d0;
     $name: '$secondary-a';
 
-    $test: inspect(generate-mono($seed, $name));
-    $expect: inspect(('$secondary-a':#ff40d0,'$secondary-a--lighter':#ff80e0,'$secondary-a--lightest':#ffc0ef,'$secondary-a--darker':#ff00c0,'$secondary-a--darkest':#c00090));
-    @include assert-equal($test, $expect,
-      'Returns a map with color values');
+    $test: generate-mono($seed, $name);
+    $expect: ('$secondary-a':#ff40d0,'$secondary-a--lighter':#ff80e0,'$secondary-a--lightest':#ffc0ef,'$secondary-a--darker':#ff00c0,'$secondary-a--darkest':#c00090);
+    @include assert-equal(map-keys($test), map-keys($expect),
+      'Returns a map with keys based on input');
+  }
+  
+  
+  
+  
+  @include test('The hex values should be equal to the seed, 2 values that are lighter, and 2 values that are darker than the seed') {
+    $seed: #ff40d0;
+    
+    $test: generate-mono($seed);
+    $expect: ($seed, lighten($seed, 12.5%), lighten($seed, 25%), darken($seed, 12.5%), darken($seed, 25%));
+    $test-lightness: ();
+    $expect-lightness: ();
+    
+    @for $i from 1 through length($test) {
+        $test-lightness: append($test-lightness, lightness(nth(map-values($test), $i)));
+    }
+    
+    @for $i from 1 through length($expect) {
+        $expect-lightness: append($expect-lightness, lightness(nth($expect, $i)));
+    }
+    
+    @include assert-equal($test-lightness, $expect-lightness,
+      'Returns a map with color values appropriately adjusted');
   }
 
 }

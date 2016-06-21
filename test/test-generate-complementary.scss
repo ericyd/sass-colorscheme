@@ -4,23 +4,36 @@
 @include test-module('generate-complementary') {
 
   // Testing Functions
-  @include test('Generate 5 monochromatic colors from 1 input') {
+  @include test('Generate 10 colors from 1 input') {
     $seed: #ff40d0;
 
-    $test: inspect(generate-mono($seed));
-    $expect: inspect(('$primary':#ff40d0,'$primary--lighter':#ff80e0,'$primary--lightest':#ffc0ef,'$primary--darker':#ff00c0,'$primary--darkest':#c00090));
-    @include assert-equal($test, $expect,
-      'Returns a map with color values');
+    $test: generate-complementary($seed);
+    @include assert-equal(length($test), 10,
+      'Returns a map with 10 color values');
   }
   
-  @include test('Generate mono colors with named keys') {
+  
+  
+  
+  @include test('Generate mono colors and complementary colors') {
     $seed: #ff40d0;
-    $name: '$secondary-a';
 
-    $test: inspect(generate-mono($seed, $name));
-    $expect: inspect(('$secondary-a':#ff40d0,'$secondary-a--lighter':#ff80e0,'$secondary-a--lightest':#ffc0ef,'$secondary-a--darker':#ff00c0,'$secondary-a--darkest':#c00090));
-    @include assert-equal($test, $expect,
-      'Returns a map with color values');
+    $test: generate-complementary($seed);
+    $expect: ("$primary", "$primary--lighter", "$primary--lightest", "$primary--darker", "$primary--darkest", "$complementary", "$complementary--lighter", "$complementary--lightest", "$complementary--darker", "$complementary--darkest");
+    @include assert-equal(map-keys($test), $expect,
+      'Returns both $primary and $complementary colors');
   }
+  
+  
+  
+  
+  @include test('The $complementary color should be the complement of the seed') {
+    $seed: #ff40d0;
 
+    $test: generate-complementary($seed);
+    $expect: complement(map-get($test, '$primary'));
+    @include assert-equal(map-get($test, '$complementary'), $expect,
+      'Returns $complementary colors that are complementary to the $primary');
+  }
+  
 }

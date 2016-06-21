@@ -1,0 +1,95 @@
+@import "../node_modules/sass-true/sass/_true";
+@import "../lib/generate-analogic";
+
+@include test-module('generate-analogic') {
+
+  // Testing Functions
+  @include test('Generate 15 colors from 1 input when $complement == false') {
+    $seed: #ff40d0;
+    $distance: 0.3;
+
+    $test: generate-analogic($seed, $distance, false);
+    @include assert-equal(length($test), 15,
+      'Returns a map with 15 color values');
+  }
+  
+  
+  
+  
+  @include test('Generate 20 colors from 1 input when $complement == true') {
+    $seed: #ff40d0;
+    $distance: 0.3;
+
+    $test: generate-analogic($seed, $distance, true);
+    @include assert-equal(length($test), 20,
+      'Returns a map with 20 color values');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-a should be 90deg * $distance away from $seed') {
+    $seed: #ff40d0;
+    $distance: 0.3;
+
+    $test: generate-analogic($seed, $distance, false);
+    @include assert-equal(hue(map-get($test, '$secondary-a')), hue($seed) + ($distance * 90deg),
+      'Returns a secondary-a hue that is the correct angle away from seed');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-b should be negative 90deg * $distance away from $seed') {
+    $seed: #ff40d0;
+    $distance: 0.3;
+
+    $test: generate-analogic($seed, $distance, false);
+    $outcome: round(hue(map-get($test, '$secondary-b')) - (hue($seed) - ($distance * 90deg))) == 0deg;
+    @include assert-equal($outcome, true,
+      'Returns a secondary-b hue that is the correct angle away from seed');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-a should be greater than hue of seed') {
+    $seed: #DE7A8B;
+    $distance: 0.3;
+    
+    $test: generate-analogic($seed, $distance, false);
+    $secondary-a: hue(map-get($test, '$secondary-a'));
+    $primary: hue(map-get($test, '$primary'));
+    
+    // adjust if $secondary-a might wrap around
+    @if $primary > (360 - 90 * $distance) and $primary <= 360 {
+        $secondary-a: 360 - $secondary-a;
+        $primary: 360 - $primary;
+    }
+    
+    @include assert-equal($secondary-a > $primary, true,
+      'Returns secondary-a hue with greater hue than $seed');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-b should be less than hue of seed') {
+    $seed: #DE7A8B;
+    $distance: 0.3;
+    
+    $test: generate-analogic($seed, $distance, false);
+    $secondary-b: hue(map-get($test, '$secondary-b'));
+    $primary: hue(map-get($test, '$primary'));
+    
+    // adjust if $secondary-b might wrap around
+    @if $primary < (90 * $distance) and $primary >= 0 {
+        $secondary-b: 360 - $secondary-b;
+        $primary: 360 - $primary;
+    }
+    
+    @include assert-equal($secondary-b < $primary, true,
+      'Returns secondary-b hue with lower hue than $seed');
+  }
+  
+}

@@ -1,0 +1,84 @@
+@import "../node_modules/sass-true/sass/_true";
+@import "../lib/generate-triad";
+
+@include test-module('generate-triad') {
+
+  // Testing Functions
+  @include test('Generate 15 colors from 1 input') {
+    $seed: #ff40d0;
+    $distance: 0.3;
+
+    $test: generate-triad($seed, $distance);
+    @include assert-equal(length($test), 15,
+      'Returns a map with 15 color values');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-a should be 90deg * $distance away from complement of $seed') {
+    $seed: #ff40d0;
+    $distance: 0.3;
+
+    $test: generate-triad($seed, $distance);
+    @include assert-equal(hue(map-get($test, '$secondary-a')), hue(complement($seed)) + ($distance * 90deg),
+      'Returns a secondary-a hue that is the correct angle away from complement of $seed');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-b should be negative 90deg * $distance away from complement of $seed') {
+    $seed: #ff40d0;
+    $distance: 0.3;
+
+    $test: generate-triad($seed, $distance);
+    $outcome: round(hue(map-get($test, '$secondary-b')) - (hue(complement($seed)) - ($distance * 90deg))) == 0deg;
+    @include assert-equal($outcome, true,
+      'Returns a secondary-b hue that is the correct angle away from complement of $seed');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-a should be greater than hue of complement of $seed') {
+    $seed: #DE7A8B;
+    $distance: 0.3;
+    
+    $test: generate-triad($seed, $distance);
+    $secondary-a: hue(map-get($test, '$secondary-a'));
+    $complement: hue(complement(map-get($test, '$primary')));
+    
+    // adjust if $secondary-a might wrap around
+    @if $complement > (360 - 90 * $distance) and $complement <= 360 {
+        $secondary-a: 360 - $secondary-a;
+        $complement: 360 - $complement;
+    }
+    
+    @include assert-equal($secondary-a > $complement, true,
+      'Returns secondary-a hue with greater hue than complement of $seed');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-b should be less than hue of complement of $seed') {
+    $seed: #DE7A8B;
+    $seed: #ff0000;
+    $distance: 0.3;
+    
+    $test: generate-triad($seed, $distance);
+    $secondary-b: hue(map-get($test, '$secondary-b'));
+    $complement: hue(complement(map-get($test, '$primary')));
+    
+    // adjust if $secondary-b might wrap around
+    @if $complement < (90 * $distance) and $complement >= 0 {
+        $secondary-b: 360 - $secondary-b;
+        $complement: 360 - $complement;
+    }
+    
+    @include assert-equal($secondary-b < $complement, true,
+      'Returns secondary-b hue with lower hue than complement of $seed');
+  }
+  
+}

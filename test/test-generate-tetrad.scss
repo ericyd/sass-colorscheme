@@ -1,0 +1,81 @@
+@import "../node_modules/sass-true/sass/_true";
+@import "../lib/generate-tetrad";
+
+@include test-module('generate-tetrad') {
+
+  @include test('Generate 20 colors from 1 input') {
+    $seed: #ff40d0;
+    $distance: 0.3;
+
+    $test: generate-tetrad($seed, $distance);
+    @include assert-equal(length($test), 20,
+      'Returns a map with 20 color values');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-a should be 90deg * $distance away from $seed') {
+    $seed: #ff40d0;
+    $distance: 0.3;
+
+    $test: generate-tetrad($seed, $distance);
+    @include assert-equal(hue(map-get($test, '$secondary-a')), hue($seed) + ($distance * 90deg),
+      'Returns a secondary-a hue that is the correct angle away from seed');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-b should be 90deg * $distance away from $complementary') {
+    $seed: #ff40d0;
+    $distance: 0.3;
+
+    $test: generate-tetrad($seed, $distance);
+    @include assert-equal(hue(map-get($test, '$secondary-b')), hue(complement($seed)) + ($distance * 90deg),
+      'Returns a secondary-b hue that is the correct angle away from complementary');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-a should be greater than hue of seed') {
+    $seed: #DE7A8B;
+    $distance: 0.3;
+    
+    $test: generate-tetrad($seed, $distance);
+    $secondary-a: hue(map-get($test, '$secondary-a'));
+    $primary: hue(map-get($test, '$primary'));
+    
+    // adjust if $secondary-a might wrap around
+    @if $primary > (360 - 90 * $distance) and $primary <= 360 {
+        $secondary-a: 360 - $secondary-a;
+        $primary: 360 - $primary;
+    }
+    
+    @include assert-equal($secondary-a > $primary, true,
+      'Returns secondary-a hue with greater hue than $seed');
+  }
+  
+  
+  
+  
+  @include test('Hue of $secondary-b should be less than hue of complementary') {
+    $seed: #DE7A8B;
+    $seed: #90D4CD;
+    $distance: 0.3;
+    
+    $test: generate-tetrad($seed, $distance);
+    $secondary-b: hue(map-get($test, '$secondary-b'));
+    $complementary: hue(map-get($test, '$complementary'));
+    
+    // adjust if $secondary-b might wrap around
+    @if $complementary > (360 - 90 * $distance) and $complementary <= 360 {
+        $secondary-b: 360 - $secondary-b;
+        $complementary: 360 - $complementary;
+    }
+    
+    @include assert-equal($secondary-b > $complementary, true,
+      'Returns secondary-b hue with lower hue than $seed');
+  }
+}
