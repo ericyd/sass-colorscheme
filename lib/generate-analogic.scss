@@ -21,7 +21,8 @@
     }
     
     $secondary-a-colors: generate-mono(adjust-hue($seed, $distance), '$secondary-a');
-    $secondary-a-colors: generate-mono(adjust-hue($seed, -$distance), '$secondary-b');
+    $secondary-b-colors: generate-mono(adjust-hue($seed, -$distance), '$secondary-b');
+    
         
     @return map-merge(map-merge($base-colors, $secondary-a-colors), $secondary-b-colors);
 }
