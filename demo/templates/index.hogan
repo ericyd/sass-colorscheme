@@ -6,13 +6,13 @@
     
     <body>
         {{#schemes}}
-            <h1>$scheme: '{{scheme}}', $variation: '{{variations}}'</h1>
             <div class='scheme'>
-                {{# keys }}
+                <h1>$scheme: '{{scheme}}', $variation: '{{variation}}'</h1>
+                {{#colors}}
                     {{#variants}}
-                        <div class='box {{key}}{{variant}}'></div>
+                        <div class='box {{scheme}}-{{color}}{{variant}}'></div>
                     {{/variants}}
-                {{/ keys }}
+                {{/colors}}
             </div>
         {{/schemes}}
     </body>
