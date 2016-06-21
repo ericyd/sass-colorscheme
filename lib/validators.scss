@@ -27,25 +27,15 @@
 }
 
 @function validate-distance($distance, $scheme) {
-    @if type-of($distance) != number {
-        @if $distance < 0 {
-            @if $distance > 1 {
-                @warn "$distance must be a number between 0 and 1 (inclusive)";
-                @return false;
-            }
-        }        
+    @if type-of($distance) != number and $distance < 0 and $distance > 1 {
+        @warn "$distance must be a number between 0 and 1 (inclusive)";
+        @return false;        
     }
     
     /* Warn if $distance is being used with scheme other than triad, tetrad, or analogic */
-    @if $distance != 0.3 {
-        @if $scheme != 'triad' { 
-            @if $scheme != 'tetrad' {
-                @if $scheme != 'analogic' {
-                    @warn "$distance will have no effect unless used with schemes 'triad', 'tetrad', or 'analogic'";
-                    @return false;
-                }
-            }
-        }
+    @if $distance != 0.3 and $scheme != 'triad' and $scheme != 'tetrad' and $scheme != 'analogic' {
+        @warn "$distance will have no effect unless used with schemes 'triad', 'tetrad', or 'analogic'";
+        @return false;
     }
     @return true;
 }
@@ -58,11 +48,9 @@
     }
     
     /* Warn if $complement is being used with scheme other than analogic */
-    @if $complement != false {
-        @if $scheme != 'analogic' {
-            @warn "$complement will have no effect unless used with 'analogic' scheme";
-            @return false;
-        }
+    @if $complement != false and $scheme != 'analogic' {
+        @warn "$complement will have no effect unless used with 'analogic' scheme";
+        @return false;
     }
     @return true;
 }
