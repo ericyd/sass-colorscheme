@@ -4,11 +4,38 @@
 $seed-color: #FFA000;
 $colorscheme: generate($demo-settings...);
 
+// $numbers: ();
+// @for $i from 1 through length($colorscheme) {
+//     $numbers: append($numbers, $i);
+// }
 
-h1 {
-    background: $primary;
-    color: $primary--lighter;
-    font: $primary--lightest;
-    color3: $primary--darker;
-    color4: $primary--darkest;
+.box {
+    display: none;
+    width: 100px;
+    height: 100px; 
+    border: none;
+}
+
+.scheme {
+    width: 700px;
+    margin: 0 auto; 
+    padding: 0; 
+}
+
+@each $key in map-keys($map: $colorscheme) {
+    $color: map-get($map: $colorscheme, $key: #{$key});
+    $class: str-slice($key, 2);
+ 
+    .mono-#{$class} {
+        display: inline-block;
+        background: $color;
+        @if lightness($color) > 50% {
+            color: #000;
+        } @else {
+            color: #fff;
+        }
+        &::before {
+            content: quote(inspect($color));
+        }
+    }
 }

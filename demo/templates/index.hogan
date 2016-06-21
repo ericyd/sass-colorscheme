@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="demo.css">
+    </head>
+    
+    <body>
+        {{#schemes}}
+            <h1>$scheme: '{{scheme}}', $variation: '{{variations}}'</h1>
+            <div class='scheme'>
+                {{# keys }}
+                    {{#variants}}
+                        <div class='box {{key}}{{variant}}'></div>
+                    {{/variants}}
+                {{/ keys }}
+            </div>
+        {{/schemes}}
+    </body>
+</html>
