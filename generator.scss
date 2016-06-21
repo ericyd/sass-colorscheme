@@ -6,6 +6,12 @@ inspired by http://c0bra.github.io/color-scheme-js/ (https://github.com/c0bra/co
 and http://colorschemedesigner.com/csd-3.5/
 */
 
+// todo: generate tests for validators
+// todo: for colorscheme tests, test with a variety of hues from color wheel
+// todo: add handling for variations
+// todo: throw error if validator fails
+// todo: add instructions for generating demos
+
 @import "lib/validators";
 @import "lib/generate-mono";
 @import "lib/generate-complementary";
@@ -49,10 +55,6 @@ and http://colorschemedesigner.com/csd-3.5/
     } @else if $scheme == 'analogic' {
         $colors: generate-analogic($seed, $distance, $complement);
     }
-    
-    
-    
-    // todo: apply variation
     
 
 

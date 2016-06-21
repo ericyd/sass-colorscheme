@@ -1,14 +1,6 @@
 @import "../generator";
 @import "demo-settings";
 
-$seed-color: #FFA000;
-$colorscheme: generate($demo-settings...);
-
-// $numbers: ();
-// @for $i from 1 through length($colorscheme) {
-//     $numbers: append($numbers, $i);
-// }
-
 .box {
     display: none;
     width: 100px;
@@ -22,20 +14,36 @@ $colorscheme: generate($demo-settings...);
     padding: 0; 
 }
 
-@each $key in map-keys($map: $colorscheme) {
-    $color: map-get($map: $colorscheme, $key: #{$key});
-    $class: str-slice($key, 2);
- 
-    .mono-#{$class} {
-        display: inline-block;
-        background: $color;
-        @if lightness($color) > 50% {
-            color: #000;
-        } @else {
-            color: #fff;
-        }
-        &::before {
-            content: quote(inspect($color));
+.row {
+    display: block;
+}
+
+$seed-color: #FFA000;
+
+$schemes: ('mono', 'complementary', 'triad', 'tetrad', 'analogic');
+
+@for $i from 1 through length($schemes) {
+    // $demo-settings: (seed: $seed-color, global: true, scheme: nth($schemes, $i), distance: 0.3, variation: 'none', complement: false);
+    $colorscheme: generate($seed: $seed-color, $scheme: nth($schemes, $i));
+    
+    @each $key in map-keys($map: $colorscheme) {
+        $color: map-get($map: $colorscheme, $key: #{$key});
+        $class: str-slice($key, 2);
+    
+        .#{nth($schemes, $i)}-#{$class} {
+            display: inline-block;
+            background: $color;
+            @if lightness($color) > 40% {
+                color: #000;
+            } @else {
+                color: #fff;
+            }
+            &::before {
+                content: quote(inspect($color));
+            }
         }
     }
+
 }
+
+
