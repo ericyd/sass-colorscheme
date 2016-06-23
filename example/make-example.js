@@ -5,8 +5,6 @@ var open = require('open');
 var sass = require('node-sass');
 
 // set seed color
-//todo: not sure what argument number it would be - print out list
-
 if (process.argv[2]) {
     var re = /(?:.*'seed'\:)(.*)(?=,)/;
     var settings = fs.readFileSync(path.join(__dirname, 'defaults.scss')).toString();
@@ -53,29 +51,3 @@ fs.readFile(path.join(__dirname, 'templates', 'index.hogan'), function(err, data
     // open index.html in browser
     open(path.join(__dirname, 'index.html'));
 });
-
-
-/* shouldn't be necessary unless more templates are added to ./templates */
-// var partials = {};
-// var data;
-// fs.readdir(path.join(__dirname, 'templates'), function(err, files) {
-//     if (err) throw err;
-//     for (var i = 0; i < files.length; i++) {
-//         data = fs.readFileSync(path.join(__dirname, 'templates', files[i]));
-//         if (path.basename(files[i]) == 'index.hogan') {
-//             index = hogan.compile(data.toString());
-//         } else {
-//             partials[path.basename(files[i],'.hogan')] = hogan.compile(data.toString());
-//         }
-//     }
-//     fs.writeFile(path.join(__dirname, 'index.html'),
-//                 index.render({
-//                     'schemes': schemes, 
-//                     'variation': 'none', 
-//                     'colors': colors, 
-//                     'variants': variants,
-//                     }, partials),
-//                 function(err) {if (err) throw err});
-//     open(path.join(__dirname, 'index.html'));
-// });
-
