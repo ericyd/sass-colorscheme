@@ -57,71 +57,71 @@ and http://colorschemedesigner.com/csd-3.5/
     /* Set global variables from non-empty $colors keys */    
     @if $global == true {
         // Set $primary and variants
-        @if map-has-key($colors, '$primary') {
-            $primary: map-get($map: $colors, $key: '$primary') !global;
+        @if map-has-key($colors, 'primary') {
+            $primary: map-get($map: $colors, $key: 'primary') !global;
         }
-        @if map-has-key($colors, '$primary--lighter') {
-            $primary--lighter: map-get($map: $colors, $key: '$primary--lighter') !global;
+        @if map-has-key($colors, 'primary--lighter') {
+            $primary--lighter: map-get($map: $colors, $key: 'primary--lighter') !global;
         }
-        @if map-has-key($colors, '$primary--lightest') {
-            $primary--lightest: map-get($map: $colors, $key: '$primary--lightest') !global;
+        @if map-has-key($colors, 'primary--lightest') {
+            $primary--lightest: map-get($map: $colors, $key: 'primary--lightest') !global;
         }
-        @if map-has-key($colors, '$primary--darker') {
-            $primary--darker: map-get($map: $colors, $key: '$primary--darker') !global;
+        @if map-has-key($colors, 'primary--darker') {
+            $primary--darker: map-get($map: $colors, $key: 'primary--darker') !global;
         }
-        @if map-has-key($colors, '$primary--darkest') {
-            $primary--darkest: map-get($map: $colors, $key: '$primary--darkest') !global;
+        @if map-has-key($colors, 'primary--darkest') {
+            $primary--darkest: map-get($map: $colors, $key: 'primary--darkest') !global;
         }
         
         // Set $secondary-a and variants
-        @if map-has-key($colors, '$secondary-a') {
-            $secondary-a: map-get($map: $colors, $key: '$secondary-a') !global;
+        @if map-has-key($colors, 'secondary-a') {
+            $secondary-a: map-get($map: $colors, $key: 'secondary-a') !global;
         }
-        @if map-has-key($colors, '$secondary-a--lighter') {
-            $secondary-a--lighter: map-get($map: $colors, $key: '$secondary-a--lighter') !global;
+        @if map-has-key($colors, 'secondary-a--lighter') {
+            $secondary-a--lighter: map-get($map: $colors, $key: 'secondary-a--lighter') !global;
         }
-        @if map-has-key($colors, '$secondary-a--lightest') {
-            $secondary-a--lightest: map-get($map: $colors, $key: '$secondary-a--lightest') !global;
+        @if map-has-key($colors, 'secondary-a--lightest') {
+            $secondary-a--lightest: map-get($map: $colors, $key: 'secondary-a--lightest') !global;
         }
-        @if map-has-key($colors, '$secondary-a--darker') {
-            $secondary-a--darker: map-get($map: $colors, $key: '$secondary-a--darker') !global;
+        @if map-has-key($colors, 'secondary-a--darker') {
+            $secondary-a--darker: map-get($map: $colors, $key: 'secondary-a--darker') !global;
         }
-        @if map-has-key($colors, '$secondary-a--darkest') {
-            $secondary-a--darkest: map-get($map: $colors, $key: '$secondary-a--darkest') !global;
+        @if map-has-key($colors, 'secondary-a--darkest') {
+            $secondary-a--darkest: map-get($map: $colors, $key: 'secondary-a--darkest') !global;
         }
         
         // Set $secondary-b and variants
-        @if map-has-key($colors, '$secondary-b') {
-            $secondary-b: map-get($map: $colors, $key: '$secondary-b') !global;
+        @if map-has-key($colors, 'secondary-b') {
+            $secondary-b: map-get($map: $colors, $key: 'secondary-b') !global;
         }
-        @if map-has-key($colors, '$secondary-b--lighter') {
-            $secondary-b--lighter: map-get($map: $colors, $key: '$secondary-b--lighter') !global;
+        @if map-has-key($colors, 'secondary-b--lighter') {
+            $secondary-b--lighter: map-get($map: $colors, $key: 'secondary-b--lighter') !global;
         }
-        @if map-has-key($colors, '$secondary-b--lightest') {
-            $secondary-b--lightest: map-get($map: $colors, $key: '$secondary-b--lightest') !global;
+        @if map-has-key($colors, 'secondary-b--lightest') {
+            $secondary-b--lightest: map-get($map: $colors, $key: 'secondary-b--lightest') !global;
         }
-        @if map-has-key($colors, '$secondary-b--darker') {
-            $secondary-b--darker: map-get($map: $colors, $key: '$secondary-b--darker') !global;
+        @if map-has-key($colors, 'secondary-b--darker') {
+            $secondary-b--darker: map-get($map: $colors, $key: 'secondary-b--darker') !global;
         }
-        @if map-has-key($colors, '$secondary-b--darkest') {
-            $secondary-b--darkest: map-get($map: $colors, $key: '$secondary-b--darkest') !global;
+        @if map-has-key($colors, 'secondary-b--darkest') {
+            $secondary-b--darkest: map-get($map: $colors, $key: 'secondary-b--darkest') !global;
         }
         
         // Set Complementary and variants
-        @if map-has-key($colors, '$complementary') {
-            $complementary: map-get($map: $colors, $key: '$complementary') !global;
+        @if map-has-key($colors, 'complementary') {
+            $complementary: map-get($map: $colors, $key: 'complementary') !global;
         }
-        @if map-has-key($colors, '$complementary--lighter') {
-            $complementary--lighter: map-get($map: $colors, $key: '$complementary--lighter') !global;
+        @if map-has-key($colors, 'complementary--lighter') {
+            $complementary--lighter: map-get($map: $colors, $key: 'complementary--lighter') !global;
         }
-        @if map-has-key($colors, '$complementary--lightest') {
-            $complementary--lightest: map-get($map: $colors, $key: '$complementary--lightest') !global;
+        @if map-has-key($colors, 'complementary--lightest') {
+            $complementary--lightest: map-get($map: $colors, $key: 'complementary--lightest') !global;
         }
-        @if map-has-key($colors, '$complementary--darker') {
-            $complementary--darker: map-get($map: $colors, $key: '$complementary--darker') !global;
+        @if map-has-key($colors, 'complementary--darker') {
+            $complementary--darker: map-get($map: $colors, $key: 'complementary--darker') !global;
         }
-        @if map-has-key($colors, '$complementary--darkest') {
-            $complementary--darkest: map-get($map: $colors, $key: '$complementary--darkest') !global;
+        @if map-has-key($colors, 'complementary--darkest') {
+            $complementary--darkest: map-get($map: $colors, $key: 'complementary--darkest') !global;
         }
     }
     

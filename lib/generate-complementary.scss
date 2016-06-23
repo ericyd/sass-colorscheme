@@ -8,8 +8,8 @@
 @import "generate-mono";
  
 @function generate-complementary($seed) {
-    $mono-colors: generate-mono($seed, '$primary');
-    $complementary-colors: generate-mono(complement($seed), '$complementary');
+    $mono-colors: generate-mono($seed);
+    $complementary-colors: generate-mono(complement($seed), complementary);
     
     @return map-merge($mono-colors, $complementary-colors);
 }

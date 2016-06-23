@@ -12,8 +12,8 @@
     $distance: $distance * 90deg;
     
     $mono-colors: generate-mono($seed);
-    $secondary-a-colors: generate-mono(adjust-hue(complement($seed), $distance), '$secondary-a');
-    $secondary-b-colors: generate-mono(adjust-hue(complement($seed), -$distance), '$secondary-b');
+    $secondary-a-colors: generate-mono(adjust-hue(complement($seed), $distance), secondary-a);
+    $secondary-b-colors: generate-mono(adjust-hue(complement($seed), -$distance), secondary-b);
             
     @return map-merge(map-merge($mono-colors, $secondary-a-colors), $secondary-b-colors);
 }

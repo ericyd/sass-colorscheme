@@ -67,10 +67,10 @@ h1 {
 @for $i from 1 through length($schemes) {
     $colorscheme: colorscheme($settings..., $scheme: nth($schemes, $i));
     
-    @each $key in map-keys($map: $colorscheme) {
-        $color: map-get($map: $colorscheme, $key: #{$key});
-        $class: str-slice($key, 2);
-        
+    @each $color-key in map-keys($map: $colorscheme) {
+        $color: map-get($map: $colorscheme, $key: $color-key);
+        $class: unquote($color-key);
+                
         // add a class for the non-variant colors, e.g. primary but not primary--lighter
         @if str-index($class, '--') == null {        
             .row--#{nth($schemes, $i)}--#{$class} {

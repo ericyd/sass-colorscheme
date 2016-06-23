@@ -14,10 +14,10 @@
     
     $complementary-colors: generate-complementary($seed);
     $secondary-a: adjust-hue($seed, $distance);
-    $secondary-b: adjust-hue(map-get($map: $complementary-colors, $key: '$complementary'), $distance);
+    $secondary-b: adjust-hue(map-get($map: $complementary-colors, $key: complementary), $distance);
     
-    $secondary-a-colors: generate-mono($secondary-a, '$secondary-a');
-    $secondary-b-colors: generate-mono($secondary-b, '$secondary-b');
+    $secondary-a-colors: generate-mono($secondary-a, secondary-a);
+    $secondary-b-colors: generate-mono($secondary-b, secondary-b);
     
     @return map-merge(map-merge($complementary-colors, $secondary-a-colors), $secondary-b-colors);
 }

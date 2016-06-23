@@ -35,13 +35,13 @@ $seed-color: #ffd040;
 $colorscheme: colorscheme($seed: $seed-color, $global: false, $scheme: 'mono');
 
 h1 {
-    color: map-get($colorscheme, '$primary'); // #ffd040
-    background: map-get($colorscheme, '$primary-lightest'); // #ffefc0
-    border: 1px solid map-get($colorscheme, '$primary-darkest'); // #c09000
+    color: map-get($colorscheme, 'primary'); // #ffd040
+    background: map-get($colorscheme, 'primary-lightest'); // #ffefc0
+    border: 1px solid map-get($colorscheme, 'primary-darkest'); // #c09000
 }
 ```
 
-Note that the keys used with `map-get` are _identical_ to the global variable names, including the leading `$`. 
+Note that the keys used with `map-get` are identical to the global variable names, except for the leading `$`. 
 
 
 
