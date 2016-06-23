@@ -38,3 +38,4 @@ jspm_packages
 
 example/index.html
 example/example.css
+example/defaults/seed-color.scss

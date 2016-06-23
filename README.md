@@ -49,6 +49,8 @@ Note that the keys used with `map-get` are _identical_ to the global variable na
 
 #### colorscheme-generator($seed[, $global][, $scheme][, $distance][, $variation][, $complement])
 
+Returns a map of colors (see [Output](#output))
+
 ### $seed
 Type: `color`
 
@@ -82,15 +84,20 @@ The two secondary colors are adjacent to the `$seed` color.  Can optionally incl
 Type: `number` Default: `0.3` Range: `0 - 1, inclusive` (Optional)
 
 The distance separating the secondary values from the seed and complement.  
-Only valid for `triad`, `tetrad`, and `analogic`.
-A larger number increases the amount of separation between colors, where 1 is maximum separation.  
-Used with `tetrad`, a distance of 1 will result in 4 evenly spaces hues around the color circle.  
-That is, each hue will be offset from the other by 90 degrees.  
-A distance of 0 will result in the same output as the `complementary` scheme.
-For `triad` and `analogic`, A distance of 1 will result in the same scheme: 
-the seed, plus two colors that are evenly spaces between the seed and it's complement.
-For `triad`, a distance of 0 will result in the same scheme as `complementary`.
-For `analogic`, a distance of 0 will result in the same scheme as `mono`.
+Notes:
+
+* Only valid for `triad`, `tetrad`, and `analogic`.
+* A larger number increases the amount of separation between 
+colors, where 1 is maximum separation.  
+* Used with `tetrad`, a distance of 1 will result in 4 evenly 
+spaces hues around the color circle.  That is, each hue will 
+be offset from the other by 90 degrees.  
+* A distance of 0 will result in the same output as the `complementary` scheme.
+* For `triad` and `analogic`, A distance of 1 will result in 
+the same scheme: the seed, plus two colors that are evenly 
+spaces between the seed and it's complement.
+* For `triad`, a distance of 0 will result in the same scheme as `complementary`.
+* For `analogic`, a distance of 0 will result in the same scheme as `mono`.
     
 ### $variation
 Type: `string` Default: `none` (Optional)
@@ -139,10 +146,26 @@ The output varies depending on the selected $scheme:
 * `analogic` with `$complement: true` returns all four base variables and all variants
 
 
+## Generating example color schemes
 
-* variable arguments - only pass what you want
-* sets global color variables (could be optional!!!!0
-* also returns map, get with `map-get()`
-* seed should be able to accept hex or named string
-* options:
-* defaults:
+The package has an `example` directory which is designed to make it easy to generate and preview various color schemes.
+
+### Creating previews
+
+Both the `example` script and the `start` script will generate a preview using the default settings.
+
+```bash
+npm start
+#or
+npm run example
+```
+
+To pass a custom seed color to the example script, simply pass a command line argument to npm:
+
+```bash
+npm start -- #ff0000
+# or
+npm run example -- #ff0000
+```
+
+Alternatively, you can modify the default seed color in `example/defaults.scss` and simply run `npm start` with no arguments.
