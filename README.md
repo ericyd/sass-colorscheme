@@ -17,27 +17,27 @@ Import the `scss` file from any other Sass file,
 and assign a variable to the function's output:
 
 ```sass
-@import "node_modules/sass-colorscheme-generator/generator";
+@import "node_modules/sass-colorscheme/colorscheme";
 $seed-color: #ffd040;
-$colorscheme: colorscheme-generator($seed: $seed-color, $global: true, $scheme: 'mono');
+$colorscheme: colorscheme($seed: $seed-color, $global: true, $scheme: 'mono');
 
 h1 {
     color: $primary; // #ffd040
-    background: $primary-lightest; // #
-    border: 1px solid $primary-darkest; // #
+    background: $primary-lightest; // #ffefc0
+    border: 1px solid $primary-darkest; // #c09000
 }
 ```
 Or, if variables are not global  
 
 ```sass
-@import "node_modules/sass-colorscheme-generator/generator";
+@import "node_modules/sass-colorscheme/colorscheme";
 $seed-color: #ffd040;
-$colorscheme: colorscheme-generator($seed: $seed-color, $global: false, $scheme: 'mono');
+$colorscheme: colorscheme($seed: $seed-color, $global: false, $scheme: 'mono');
 
 h1 {
     color: map-get($colorscheme, '$primary'); // #ffd040
-    background: map-get($colorscheme, '$primary-lightest'); // #
-    border: 1px solid map-get($colorscheme, '$primary-darkest'); // #
+    background: map-get($colorscheme, '$primary-lightest'); // #ffefc0
+    border: 1px solid map-get($colorscheme, '$primary-darkest'); // #c09000
 }
 ```
 
@@ -47,7 +47,7 @@ Note that the keys used with `map-get` are _identical_ to the global variable na
 
 ## Syntax
 
-#### colorscheme-generator($seed[, $global][, $scheme][, $distance][, $variation][, $complement])
+#### colorscheme($seed[, $global][, $scheme][, $distance][, $variation][, $complement])
 
 Returns a map of colors (see [Output](#output))
 
@@ -160,12 +160,12 @@ npm start
 npm run example
 ```
 
-To pass a custom seed color to the example script, simply pass a command line argument to npm:
+To pass a custom seed color to the example script, simply pass a command line argument to npm (note that the color must be quoted):
 
 ```bash
-npm start -- #ff0000
+npm start -- '#ff0000'
 # or
-npm run example -- #ff0000
+npm run example -- '#ff0000'
 ```
 
 Alternatively, you can modify the default seed color in `example/defaults.scss` and simply run `npm start` with no arguments.

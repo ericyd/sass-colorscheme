@@ -20,7 +20,7 @@ and http://colorschemedesigner.com/csd-3.5/
 @import "lib/generate-analogic";
 
 
-@function generate($seed, 
+@function colorscheme($seed, 
                    $global: true, 
                    $scheme: 'mono', 
                    $distance: 0.3, 

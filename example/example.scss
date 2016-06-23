@@ -1,4 +1,4 @@
-@import "../generator";
+@import "../colorscheme";
 @import "default";
 
 
@@ -67,7 +67,7 @@ h1 {
 }
 
 @for $i from 1 through length($schemes) {
-    $colorscheme: generate($seed: $seed-color, $scheme: nth($schemes, $i), $optional-settings...);
+    $colorscheme: colorscheme($seed: $seed-color, $scheme: nth($schemes, $i), $optional-settings...);
     
     @each $key in map-keys($map: $colorscheme) {
         $color: map-get($map: $colorscheme, $key: #{$key});
