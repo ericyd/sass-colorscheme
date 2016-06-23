@@ -1,0 +1,20 @@
+@import "../node_modules/sass-true/sass/_true";
+@import "../lib/validators";
+
+@include test-module('validate-global') {
+
+  @include test('Global must be a boolean') {
+    $global: true;
+    $test: validate-global($global);
+    @include assert-equal($test, true,
+      'Returns true when global is boolean');
+  }
+  
+  @include test('Global cannot be a string representation of boolean') {
+    $global: 'true';
+    $test: validate-global($global);
+    @include assert-equal($test, false,
+      'Returns false when global is not boolean');
+  }
+
+}

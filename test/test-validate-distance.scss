@@ -1,0 +1,48 @@
+@import "../node_modules/sass-true/sass/_true";
+@import "../lib/validators";
+
+@include test-module('validate-distance') {
+
+  @include test('Distance must be a number between 0 and 1, inclusive') {
+    $scheme: 'triad';
+    
+    $distance: 0;
+    $test: validate-distance($distance, $scheme);
+    @include assert-equal($test, true,
+      'Returns true when $distance is between 0 and 1 (inclusive)');
+    
+    $distance: 0.5;
+    $test: validate-distance($distance, $scheme);
+    @include assert-equal($test, true,
+      'Returns true when $distance is between 0 and 1 (inclusive)');
+    
+    $distance: 1;
+    $test: validate-distance($distance, $scheme);
+    @include assert-equal($test, true,
+      'Returns true when $distance is between 0 and 1 (inclusive)');
+  }
+  
+  @include test('Distance cannot be greater than 1') {
+    $scheme: 'triad';
+    $distance: 2;
+    $test: validate-distance($distance, $scheme);
+    @include assert-equal($test, false,
+      'Returns false when $distance is greater than 1');
+  }
+  
+  @include test('Distance cannot be less than 0') {
+    $scheme: 'triad';
+    $distance: -1;
+    $test: validate-distance($distance, $scheme);
+    @include assert-equal($test, false,
+      'Returns false when $distance is less than 0');
+  }
+  
+  @include test('Distance can only be used with schemes triad, tetrad, and analogic') {
+    $scheme: 'mono';
+    $distance: 0.5;
+    $test: validate-distance($distance, $scheme);
+    @include assert-equal($test, false,
+      'Returns false when $scheme is not triad, tetrad, or analogic');
+  }
+}

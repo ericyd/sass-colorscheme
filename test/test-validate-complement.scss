@@ -1,0 +1,30 @@
+@import "../node_modules/sass-true/sass/_true";
+@import "../lib/validators";
+
+@include test-module('validate-complement') {
+
+  @include test('Complement must be boolean, and only used with analogic scheme') {
+    $complement: true;
+    $scheme: 'analogic';
+    $test: validate-complement($complement, $scheme);
+    @include assert-equal($test, true,
+      'Returns true when complement is boolean and used with analogic');
+  }
+
+  @include test('Complement cannot be a string') {
+    $complement: 'true';
+    $scheme: 'analogic';
+    $test: validate-complement($complement, $scheme);
+    @include assert-equal($test, false,
+      'Returns false when complement is not boolean');
+  }
+    
+  @include test('Complement cannot be used with scheme other than analogic') {
+    $complement: true;
+    $scheme: 'triad';
+    $test: validate-complement($complement, $scheme);
+    @include assert-equal($test, false,
+      'Returns false when complement is not used with analogic');
+  }  
+    
+}

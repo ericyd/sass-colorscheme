@@ -27,7 +27,7 @@
 }
 
 @function validate-distance($distance, $scheme) {
-    @if type-of($distance) != number and $distance < 0 and $distance > 1 {
+    @if type-of($distance) != number or ($distance < 0 or $distance > 1) {
         @warn "$distance must be a number between 0 and 1 (inclusive)";
         @return false;        
     }

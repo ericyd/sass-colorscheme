@@ -1,0 +1,24 @@
+@import "../node_modules/sass-true/sass/_true";
+@import "../lib/validators";
+
+@include test-module('validate-variation') {
+  
+  @include test("Variation may be either 'pastel', 'soft', 'light', 'hard', 'pale', or 'none'") {
+    $acceptable: ('pastel', 'soft', 'light', 'hard', 'pale', 'none');
+    
+    @for $i from 1 through length($acceptable) {
+        $variation: nth($acceptable, $i);
+        $test: validate-variation($variation);
+        @include assert-equal($test, true,
+            'Returns true when $variation is acceptable');
+    }
+  }
+  
+  @include test('Variation cannot be an alternative value') {
+    $variation: 'other-variation';
+    $test: validate-scheme($variation);
+    @include assert-equal($test, false,
+        'Returns false when $variation is not acceptable');
+  }
+
+}
