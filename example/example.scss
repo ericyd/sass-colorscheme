@@ -1,0 +1,109 @@
+@import "../generator";
+@import "default";
+
+
+
+/* Variables */
+$seed-color: #FFA000;
+$schemes: ('mono', 'complementary', 'triad', 'tetrad', 'analogic');
+$box-unit: 1em;
+$box-dimension: 5em;
+$sans-serif: 'Open sans', 'Source Sans Pro', Tahoma, Arial, Verdana, Helvetica, sans-serif;
+$monospace: 'Source Code Pro', 'Courier New', monospace;
+
+
+
+/* Fundamental classes */
+
+%hide {
+    display: none;
+}
+
+%box--plain {
+    margin:0;
+    padding:0;
+    border:none;
+}
+
+%row--show {
+    @extend %box--plain;
+    display: block;
+    width: 100%;
+    height: $box-dimension;
+}
+
+%square-result {
+    @extend %box--plain;
+    display: inline-block;
+    width: $box-dimension;
+    height: $box-dimension;
+    font-family: $sans-serif;
+}
+
+
+
+/* Main styles */
+
+.row {
+    @extend %hide;
+}
+
+.scheme {
+    width: $box-dimension * 12;
+    margin: 0 auto; 
+    padding: 0; 
+}
+
+h1 {
+    font-family: $sans-serif;
+}
+
+.col-labels {
+    @extend %row--show;
+}
+
+.col-labels__label {
+    @extend %square-result;
+}
+
+@for $i from 1 through length($schemes) {
+    $colorscheme: generate($seed: $seed-color, $scheme: nth($schemes, $i));
+    
+    @each $key in map-keys($map: $colorscheme) {
+        $color: map-get($map: $colorscheme, $key: #{$key});
+        $class: str-slice($key, 2);
+        
+        // add a class for the non-variant colors, e.g. primary but not primary--lighter
+        @if str-index($class, '--') == null {        
+            .row--#{nth($schemes, $i)}--#{$class} {
+                @extend %row--show;
+            }
+        }
+        
+        .row__label {
+            @extend %square-result;
+            width: $box-dimension * 2;
+            line-height: $box-dimension / 2;
+        }
+        
+        // generate classes for each color & variant in the scheme
+        .#{nth($schemes, $i)}-#{$class} {
+            @extend %square-result;
+            background: $color;
+            @if lightness($color) > 40% {
+                color: #000;
+            } @else {
+                color: #fff;
+            }
+            
+            &::before {
+                position: relative;
+                left: $box-unit / 2;
+                line-height: $box-dimension / 2;
+                content: quote(inspect($color));
+            }
+        }
+    }
+}
+
+

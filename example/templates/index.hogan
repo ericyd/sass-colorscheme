@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="example.css">
+    </head>
+    
+    <body>
+        {{#schemes}}
+        
+        <div class='scheme'>
+            <h1>$scheme: '{{scheme}}', $variation: '{{variation}}'</h1>
+            
+            <div class='row col-labels'>
+                <div class='row__label'></div>
+                <div class='col-labels__label'>--lightest</div>
+                <div class='col-labels__label'>--lighter</div>
+                <div class='col-labels__label'></div>
+                <div class='col-labels__label'>--darker</div>
+                <div class='col-labels__label'>--darkest</div>
+            </div>
+            
+            {{#colors}}
+            
+            <div class='row row--{{scheme}}--{{color}}'>
+                <div class='row__label'>${{color}}</div>
+                
+                {{#variants}}
+                
+                <div class='{{scheme}}-{{color}}{{variant}}'></div>
+                
+                {{/variants}}
+                
+            </div>
+            
+            {{/colors}}
+            
+        </div>
+        
+        {{/schemes}}
+    </body>
+</html>
