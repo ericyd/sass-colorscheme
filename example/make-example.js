@@ -6,10 +6,12 @@ var sass = require('node-sass');
 
 // set seed color
 //todo: not sure what argument number it would be - print out list
+
 if (process.argv[2]) {
-    fs.writeFileSync(path.join(__dirname, 'defaults', 'seed-color.scss'), '$seed-color:' + process.argv[2] + ';');
-} else {
-    fs.writeFileSync(path.join(__dirname, 'defaults', 'seed-color.scss'), '$seed-color:#ff40d0;');
+    var re = /(?:.*'seed'\:)(.*)(?=,)/;
+    var settings = fs.readFileSync(path.join(__dirname, 'defaults.scss')).toString();
+    settings = settings.replace(settings.match(re)[1], process.argv[2]);
+    fs.writeFileSync(path.join(__dirname, 'defaults.scss'), settings);
 }
 
 // compile sass

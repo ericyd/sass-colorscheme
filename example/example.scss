@@ -1,15 +1,13 @@
 @import "../colorscheme";
-@import "default";
+@import "defaults";
 
 
 
 /* Variables */
-// $seed-color: #FFA000;
 $schemes: ('mono', 'complementary', 'triad', 'tetrad', 'analogic');
 $box-unit: 1em;
 $box-dimension: 5em;
 $sans-serif: 'Open sans', 'Source Sans Pro', Tahoma, Arial, Verdana, Helvetica, sans-serif;
-$monospace: 'Source Code Pro', 'Courier New', monospace;
 
 
 
@@ -67,7 +65,7 @@ h1 {
 }
 
 @for $i from 1 through length($schemes) {
-    $colorscheme: colorscheme($seed: $seed-color, $scheme: nth($schemes, $i), $optional-settings...);
+    $colorscheme: colorscheme($settings..., $scheme: nth($schemes, $i));
     
     @each $key in map-keys($map: $colorscheme) {
         $color: map-get($map: $colorscheme, $key: #{$key});

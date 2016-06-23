@@ -1,5 +1,6 @@
 // don't override $scheme or $global, 
 // the example sets the defaults
-$optional-settings: ('distance': 0.3,
+$settings: ('seed':#ff30d0,
+ 'distance': 0.3,
  'variation': 'none',
  'complement': false);
