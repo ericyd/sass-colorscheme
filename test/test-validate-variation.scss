@@ -4,7 +4,7 @@
 @include test-module('validate-variation') {
   
   @include test("Variation may be either 'pastel', 'soft', 'light', 'hard', 'pale', or 'none'") {
-    $acceptable: ('pastel', 'soft', 'light', 'hard', 'pale', 'none');
+    $acceptable: ('pastel', 'dark', 'light', 'hard', 'pale', 'none');
     
     @for $i from 1 through length($acceptable) {
         $variation: nth($acceptable, $i);
@@ -20,5 +20,4 @@
     @include assert-equal($test, false,
         'Returns false when $variation is not acceptable');
   }
-
 }

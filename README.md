@@ -106,11 +106,11 @@ Type: `string` Default: `none` (Optional)
 
 Variations on the generated color scheme.  Accepted values are
     
-* `pastel`
-* `soft`
-* `light`
-* `hard`
-* `pale`
+* `pastel`: desaturates by 40% and lightens by 10%
+* `dark`: darkens colors by 15%
+* `light`: lightens colors by 15%
+* `hard`: saturates by 100%
+* `pale`: desaturates by 60%
 * `none`
 
 ### $complement

@@ -18,7 +18,7 @@
 }
 
 @function validate-variation($variation) {
-    $acceptable: ('pastel', 'soft', 'light', 'hard', 'pale', 'none');
+    $acceptable: ('pastel', 'dark', 'light', 'hard', 'pale', 'none');
     @if index($acceptable, $variation) == null {
         @warn "$variation must be 'pastel', 'soft', 'light', 'hard', 'pale', or 'none'.  Variation will default to 'none'.";
         @return false;
