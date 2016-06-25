@@ -16,6 +16,7 @@ and http://colorschemedesigner.com/csd-3.5/
 @import "lib/generate-triad";
 @import "lib/generate-tetrad";
 @import "lib/generate-analogic";
+@import "lib/apply-variation";
 
 
 @function colorscheme($seed, 
@@ -51,11 +52,28 @@ and http://colorschemedesigner.com/csd-3.5/
         $colors: generate-analogic($seed, $distance, $complement);
     }
     
+    
+    // todo: update documentation to reflect 'soft' => 'dark'
+    // todo: apply more of the variations found at http://colorschemedesigner.com/csd-3.5/
+    
+    /* Apply variation */
+    @if $variation == 'pastel' {
+        $colors: apply-variation($colors, (lighten, 10%), (desaturate, 40%));
+    } @else if $variation == 'dark' {
+        $colors: apply-variation($colors, (darken, 15%));
+    } @else if $variation == 'light' {
+        $colors: apply-variation($colors, (lighten, 15%));
+    } @else if $variation == 'hard' {
+        $colors: apply-variation($colors, (saturate, 100%));
+    } @else if $variation == 'pale' {
+        $colors: apply-variation($colors, (desaturate, 60%));
+    }
 
 
 
     /* Set global variables from non-empty $colors keys */    
     @if $global == true {
+        
         // Set $primary and variants
         @if map-has-key($colors, 'primary') {
             $primary: map-get($map: $colors, $key: 'primary') !global;
@@ -125,6 +143,7 @@ and http://colorschemedesigner.com/csd-3.5/
         }
     }
     
+    $one: $primary;
     
     @return $colors;
 }
