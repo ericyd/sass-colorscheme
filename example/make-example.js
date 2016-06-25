@@ -30,7 +30,7 @@ variants.forEach(function(value, index, arr) {arr[index] = {'variant': value};})
 var colors = ['primary', 'complementary', 'secondary-a', 'secondary-b'];
 colors.forEach(function(value, index, arr) {arr[index] = {'color': value};});
 
-var variations = ['pastel', 'soft', 'light', 'hard', 'pale', 'none'];
+var variations = ['none', 'pastel', 'dark', 'light', 'hard', 'pale'];
 variations.forEach(function(value, index, arr) {arr[index] = {'variation': value};});
 
 var index;
@@ -42,7 +42,7 @@ fs.readFile(path.join(__dirname, 'templates', 'index.hogan'), function(err, data
     fs.writeFile(path.join(__dirname, 'index.html'),
                 hogan.compile(data.toString()).render({
                     'schemes': schemes, 
-                    'variation': 'none', 
+                    'variations': variations, 
                     'colors': colors, 
                     'variants': variants,
                     }),

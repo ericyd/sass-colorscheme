@@ -1,6 +1,5 @@
-// don't override $scheme or $global, 
-// the example sets the defaults
+// don't override $global, must be true for example to work 
+// no need to set $scheme or $variation, the example loops through all possibilities
 $settings: ('seed':#ff30d0,
  'distance': 0.3,
- 'variation': 'none',
  'complement': false);

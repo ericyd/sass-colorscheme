@@ -5,10 +5,13 @@
     </head>
     
     <body>
+        <div class='scheme'><b>Hover or click on boxes to show hex value</b></div>
         {{#schemes}}
-        
         <div class='scheme'>
-            <h1>$scheme: '{{scheme}}', $variation: '{{variation}}'</h1>
+            <h1>$scheme: '{{scheme}}'</h1>
+            
+            {{#variations}}
+            <h2>$variation: '{{variation}}'</h2>
             
             <div class='row col-labels'>
                 <div class='row__label'></div>
@@ -19,23 +22,24 @@
                 <div class='col-labels__label'>--darkest</div>
             </div>
             
-            {{#colors}}
+                {{#colors}}
+                
+                <div class='row row--{{scheme}}--{{color}}'>
+                    <div class='row__label'>${{color}}</div>
+                    
+                    {{#variants}}
+                    
+                    <div tabindex='0' class='{{scheme}}-{{color}}{{variant}}-{{variation}}'></div>
+                    
+                    {{/variants}}
+                    
+                </div>
+                
+                {{/colors}}
+                
             
-            <div class='row row--{{scheme}}--{{color}}'>
-                <div class='row__label'>${{color}}</div>
-                
-                {{#variants}}
-                
-                <div class='{{scheme}}-{{color}}{{variant}}'></div>
-                
-                {{/variants}}
-                
-            </div>
-            
-            {{/colors}}
-            
+            {{/variations}}
         </div>
-        
         {{/schemes}}
     </body>
 </html>

@@ -5,6 +5,7 @@
 
 /* Variables */
 $schemes: ('mono', 'complementary', 'triad', 'tetrad', 'analogic');
+$variations: ('none', 'pastel', 'dark', 'light', 'hard', 'pale');
 $box-unit: 1em;
 $box-dimension: 5em;
 $sans-serif: 'Open sans', 'Source Sans Pro', Tahoma, Arial, Verdana, Helvetica, sans-serif;
@@ -47,61 +48,116 @@ $sans-serif: 'Open sans', 'Source Sans Pro', Tahoma, Arial, Verdana, Helvetica, 
 }
 
 .scheme {
-    width: $box-dimension * 12;
+    width: $box-dimension * 9;
     margin: 0 auto; 
     padding: 0; 
 }
 
 h1 {
     font-family: $sans-serif;
+    margin: 1em 0 -0.75em 0;
+}
+
+h2 {
+    font-family: $sans-serif;
+    margin: 0.5em 0 -1em 0;
 }
 
 .col-labels {
-    @extend %row--show;
+    @extend %box--plain;
+    display: block;
+    width: 100%;
+    height: $box-unit*3;
 }
 
 .col-labels__label {
     @extend %square-result;
+    position: relative;
+    top: -$box-dimension/2;
 }
 
 @for $i from 1 through length($schemes) {
-    $colorscheme: colorscheme($settings..., $scheme: nth($schemes, $i));
-    
-    @each $color-key in map-keys($map: $colorscheme) {
-        $color: map-get($map: $colorscheme, $key: $color-key);
-        $class: unquote($color-key);
-                
-        // add a class for the non-variant colors, e.g. primary but not primary--lighter
-        @if str-index($class, '--') == null {        
-            .row--#{nth($schemes, $i)}--#{$class} {
-                @extend %row--show;
-            }
-        }
+    @for $j from 1 through length($variations) {
+        $colorscheme: colorscheme($settings..., $scheme: nth($schemes, $i), $variation: nth($variations, $j));
         
-        .row__label {
-            @extend %square-result;
-            width: $box-dimension * 2;
-            line-height: $box-dimension / 2;
-        }
-        
-        // generate classes for each color & variant in the scheme
-        .#{nth($schemes, $i)}-#{$class} {
-            @extend %square-result;
-            background: $color;
-            @if lightness($color) > 40% {
-                color: #000;
-            } @else {
-                color: #fff;
+        @each $color-key in map-keys($map: $colorscheme) {
+            $color: map-get($map: $colorscheme, $key: $color-key);
+            $class: unquote($color-key);
+                    
+            // add a class for the non-variant colors, e.g. primary but not primary--lighter
+            @if str-index($class, '--') == null {        
+                .row--#{nth($schemes, $i)}--#{$class} {
+                    @extend %row--show;
+                }
             }
             
-            &::before {
+            .row__label {
+                @extend %square-result;
+                width: $box-dimension * 2;
                 position: relative;
-                left: $box-unit / 2;
-                line-height: $box-dimension / 2;
-                content: quote(inspect($color));
+                top: -$box-dimension/2;
+            }
+            
+            // generate classes for each color & variant in the scheme
+            .#{nth($schemes, $i)}-#{$class}-#{nth($variations, $j)} {
+                @extend %square-result;
+                position: relative;
+                background: $color;
+                @if lightness($color) > 40% {
+                    color: #000;
+                } @else {
+                    color: #fff;
+                }
+                
+                &::before {
+                    background-color: #000;
+                    border-radius: 5px;
+                    color: #fff;
+                    content: quote(inspect($color));
+                    left: 0.25rem; //This centers the container above the element
+                    padding: 0.25rem;
+                    position: absolute;
+                    text-transform: none;
+                    top: -1rem; //This places the container above the element that needs a tooltip
+                    transition: all 0.5s ease;
+                }
+                
+                //Tooltip arrow
+                &::after {
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                    border-top: 5px solid #000;
+                    content: " ";
+                    font-size: 0;
+                    left: 2.5rem; //This centers the arrow above the element with the tooltip
+                    line-height: 0;
+                    margin-left: -5px;
+                    position: absolute;
+                    top: 0.9rem; //This positions the arrow at the bottom of the container
+                    width: 0;
+                }
+                
+                //Setting up the transition
+                &::before,
+                &::after {
+                    opacity: 0;
+                    pointer-events: none;
+                }
+                
+                &:focus {
+                    outline: 0;
+                }
+                
+                //Triggering the transition
+                &:hover::before,
+                &:hover::after,
+                &:focus::before,
+                &:focus::after {
+                    outline: 0; 
+                    opacity: 1;
+                    transition: all 0.5s ease;
+                }
             }
         }
     }
 }
-
-
