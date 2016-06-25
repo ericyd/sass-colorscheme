@@ -4,6 +4,12 @@ var path = require('path');
 var open = require('open');
 var sass = require('node-sass');
 
+var schemes = ['mono', 'complementary', 'triad', 'tetrad', 'analogic'];
+var variants = ['--lightest', '--lighter', '', '--darker', '--darkest'];
+var colors = ['primary', 'complementary', 'secondary-a', 'secondary-b'];
+var variations = ['none', 'pastel', 'dark', 'light', 'hard', 'pale'];
+var index;
+
 // set seed color
 if (process.argv[2]) {
     var re = /(?:.*'seed'\:)(.*)(?=,)/;
@@ -18,36 +24,36 @@ sass.render({
 }, function(err, result) {
     if (err) throw err;
     fs.writeFile(path.join(__dirname, 'example.css'), result.css.toString(), function(err) {if (err) throw err;});
+    generateDataArrays();
+    compileIndex();
 });
 
-// fill arrays with values for hogan template
-var schemes = ['mono', 'complementary', 'triad', 'tetrad', 'analogic'];
-schemes.forEach(function(value, index, arr) {arr[index] = {'scheme': value};});
 
-var variants = ['--lightest', '--lighter', '', '--darker', '--darkest'];
-variants.forEach(function(value, index, arr) {arr[index] = {'variant': value};});
+function generateDataArrays() {
+    // fill arrays with values for hogan template
+    schemes.forEach(function(value, index, arr) {arr[index] = {'scheme': value};});
+    variants.forEach(function(value, index, arr) {arr[index] = {'variant': value};});
+    colors.forEach(function(value, index, arr) {arr[index] = {'color': value};});
+    variations.forEach(function(value, index, arr) {arr[index] = {'variation': value};});
+}
 
-var colors = ['primary', 'complementary', 'secondary-a', 'secondary-b'];
-colors.forEach(function(value, index, arr) {arr[index] = {'color': value};});
 
-var variations = ['none', 'pastel', 'dark', 'light', 'hard', 'pale'];
-variations.forEach(function(value, index, arr) {arr[index] = {'variation': value};});
-
-var index;
 
 // compile hogan template and open index.html
-fs.readFile(path.join(__dirname, 'templates', 'index.hogan'), function(err, data) {
-    if (err) throw err;
-    // write rendered result to index.html
-    fs.writeFile(path.join(__dirname, 'index.html'),
-                hogan.compile(data.toString()).render({
-                    'schemes': schemes, 
-                    'variations': variations, 
-                    'colors': colors, 
-                    'variants': variants,
-                    }),
-                function(err) {if (err) throw err});
-    
-    // open index.html in browser
-    open(path.join(__dirname, 'index.html'));
-});
+function compileIndex() {
+    fs.readFile(path.join(__dirname, 'templates', 'index.hogan'), function(err, data) {
+        if (err) throw err;
+        // write rendered result to index.html
+        fs.writeFile(path.join(__dirname, 'index.html'),
+                    hogan.compile(data.toString()).render({
+                        'schemes': schemes, 
+                        'variations': variations, 
+                        'colors': colors, 
+                        'variants': variants,
+                        }),
+                    function(err) {if (err) throw err});
+        
+        // open index.html in browser
+        open(path.join(__dirname, 'index.html'));
+    });
+}
