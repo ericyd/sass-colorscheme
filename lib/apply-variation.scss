@@ -1,0 +1,23 @@
+/// Apply a variation to each color in the colorscheme
+/// 
+/// @param {map} $colors - the original map of colors generated from the colorscheme
+/// @param {list} $args - a list of functions to call on each color.  Each item of the 
+///     $args list must be a 2-item list.  The first item must be the function name, 
+///     and the second item must be the argument (amount) by which to apply the function.  
+///     For example (lighten, 10%) would apply the lighten() function with $amount: 10%.
+/// @return {map} $colors-new - the modified map containing the new colors
+/// 
+
+@function apply-variation($colors, $args...) {
+    $colors-new: ();
+    @each $color-key in map-keys($map: $colors) {
+        $color: map-get($map: $colors, $key: $color-key);
+        
+        // apply each passed function to the current $color
+        @each $function in $args {
+            $color: call(nth($function, 1), $color, nth($function, 2));
+        }
+        $colors-new: map-merge($colors-new, (unquote($color-key): $color));
+    }
+    @return $colors-new;
+}

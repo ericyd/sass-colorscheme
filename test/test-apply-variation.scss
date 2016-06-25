@@ -1,0 +1,52 @@
+@import "../node_modules/sass-true/sass/_true";
+@import "../lib/apply-variation";
+
+@include test-module('apply-variation') {
+
+  @include test('Generate the same number of colors as the input') {
+    $map: ('first': #ff40d0, 'second': #f00f0f, 'third': #dd0400);
+
+    $test: apply-variation($map, (lighten, 10%), (desturate, 10%));
+    @include assert-equal(length($map), length($test),
+      'Returns a map with the same length as the original map');
+  }
+  
+  @include test('Apply each passed function to the colors') {
+    $map: ('first': #ff40d0, 'second': #f00f0f, 'third': #dd0400);
+
+    $apply1: apply-variation($map, (lighten, 10%));
+    $apply2: apply-variation($map, (lighten, 10%), (desturate, 10%));
+    $test: _true-is-equal($apply1, $apply2);
+    @include assert-equal($test, false,
+      'Returns a map with the same length as the original map');
+  }
+  
+  @include test('Alter the colors from the original') {
+    $map: ('first': #ff40d0, 'second': #f00f0f, 'third': #dd0400);
+
+    $apply1: apply-variation($map, (lighten, 10%));
+    $test: _true-is-equal(map-values($map: $apply1), map-values($map: $map));
+    @include assert-equal($test, false,
+      'Returns a map with different colors from the original');
+  }
+  
+  @include test('Return a map with the same keys as the original') {
+    $map: ('first': #ff40d0, 'second': #f00f0f, 'third': #dd0400);
+
+    $test: apply-variation($map, (lighten, 10%));
+    @include assert-equal(map-keys($map: $test), map-keys($map: $map),
+      'Returns a map with the same keys as the original');
+  }
+  
+  
+  @include test('Should be able to apply as many functions as passed') {
+    $map: ('first': #ff40d0, 'second': #f00f0f, 'third': #dd0400);
+    $functions: (lighten, 10%), (saturate, 10%), (desaturate, 10%), (darken, 10%), (lighten, 10%), (saturate, 10%), (desaturate, 10%), (darken, 10%), (lighten, 10%), (saturate, 10%), (desaturate, 10%), (darken, 10%), (lighten, 10%), (saturate, 10%), (desaturate, 10%), (darken, 10%);
+    $test: apply-variation($map, $functions);
+    $same-length: _true-is-equal(length($test), length($map));
+    $same-keys: _true-is-equal(map-keys($test), map-keys($map));
+    @include assert-equal($same-length, $same-keys,
+      'Returns a map with the same length and keys as the original, even with many passed functions');
+  }
+  
+}
