@@ -1,5 +1,5 @@
-@import "../node_modules/sass-true/sass/_true";
-@import "../lib/generate-complementary";
+@import '../node_modules/sass-true/sass/_true';
+@import '../lib/generate-complementary';
 
 @include test-module('generate-complementary') {
 
@@ -19,7 +19,7 @@
     $seed: #ff40d0;
 
     $test: generate-complementary($seed);
-    $expect: ("$primary", "$primary--lighter", "$primary--lightest", "$primary--darker", "$primary--darkest", "$complementary", "$complementary--lighter", "$complementary--lightest", "$complementary--darker", "$complementary--darkest");
+    $expect: ('primary', 'primary--lighter', 'primary--lightest', 'primary--darker', 'primary--darkest', 'complementary', 'complementary--lighter', 'complementary--lightest', 'complementary--darker', 'complementary--darkest');
     @include assert-equal(map-keys($test), $expect,
       'Returns both $primary and $complementary colors');
   }
@@ -31,8 +31,8 @@
     $seed: #ff40d0;
 
     $test: generate-complementary($seed);
-    $expect: complement(map-get($test, '$primary'));
-    @include assert-equal(map-get($test, '$complementary'), $expect,
+    $expect: complement(map-get($test, 'primary'));
+    @include assert-equal(map-get($test, 'complementary'), $expect,
       'Returns $complementary colors that are complementary to the $primary');
   }
   

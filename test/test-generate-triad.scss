@@ -21,7 +21,7 @@
     $distance: 0.3;
 
     $test: generate-triad($seed, $distance);
-    @include assert-equal(hue(map-get($test, '$secondary-a')), hue(complement($seed)) + ($distance * 90deg),
+    @include assert-equal(hue(map-get($test, 'secondary-a')), hue(complement($seed)) + ($distance * 90deg),
       'Returns a secondary-a hue that is the correct angle away from complement of $seed');
   }
   
@@ -33,7 +33,7 @@
     $distance: 0.3;
 
     $test: generate-triad($seed, $distance);
-    $outcome: round(hue(map-get($test, '$secondary-b')) - (hue(complement($seed)) - ($distance * 90deg))) == 0deg;
+    $outcome: round(hue(map-get($test, 'secondary-b')) - (hue(complement($seed)) - ($distance * 90deg))) == 0deg;
     @include assert-equal($outcome, true,
       'Returns a secondary-b hue that is the correct angle away from complement of $seed');
   }
@@ -46,8 +46,8 @@
     $distance: 0.3;
     
     $test: generate-triad($seed, $distance);
-    $secondary-a: hue(map-get($test, '$secondary-a'));
-    $complement: hue(complement(map-get($test, '$primary')));
+    $secondary-a: hue(map-get($test, 'secondary-a'));
+    $complement: hue(complement(map-get($test, 'primary')));
     
     // adjust if $secondary-a might wrap around
     @if $complement > (360 - 90 * $distance) and $complement <= 360 {
@@ -68,8 +68,8 @@
     $distance: 0.3;
     
     $test: generate-triad($seed, $distance);
-    $secondary-b: hue(map-get($test, '$secondary-b'));
-    $complement: hue(complement(map-get($test, '$primary')));
+    $secondary-b: hue(map-get($test, 'secondary-b'));
+    $complement: hue(complement(map-get($test, 'primary')));
     
     // adjust if $secondary-b might wrap around
     @if $complement < (90 * $distance) and $complement >= 0 {

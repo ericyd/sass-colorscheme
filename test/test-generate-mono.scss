@@ -8,7 +8,7 @@
     $seed: #ff40d0;
 
     $test: generate-mono($seed);
-    $expect: ('$primary','$primary--lighter','$primary--lightest','$primary--darker','$primary--darkest');
+    $expect: ('primary','primary--lighter','primary--lightest','primary--darker','primary--darkest');
     @include assert-equal(map-keys($test), $expect,
       'Returns a map with keys based on string "$primary" and variants');
   }
@@ -29,10 +29,10 @@
   
   @include test('Change key names when $name is input') {
     $seed: #ff40d0;
-    $name: '$secondary-a';
+    $name: 'secondary-a';
 
     $test: generate-mono($seed, $name);
-    $expect: ('$secondary-a':#ff40d0,'$secondary-a--lighter':#ff80e0,'$secondary-a--lightest':#ffc0ef,'$secondary-a--darker':#ff00c0,'$secondary-a--darkest':#c00090);
+    $expect: ('secondary-a':#ff40d0,'secondary-a--lighter':#ff80e0,'secondary-a--lightest':#ffc0ef,'secondary-a--darker':#ff00c0,'secondary-a--darkest':#c00090);
     @include assert-equal(map-keys($test), map-keys($expect),
       'Returns a map with keys based on input');
   }

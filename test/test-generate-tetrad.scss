@@ -20,7 +20,7 @@
     $distance: 0.3;
 
     $test: generate-tetrad($seed, $distance);
-    @include assert-equal(hue(map-get($test, '$secondary-a')), hue($seed) + ($distance * 90deg),
+    @include assert-equal(hue(map-get($test, 'secondary-a')), hue($seed) + ($distance * 90deg),
       'Returns a secondary-a hue that is the correct angle away from seed');
   }
   
@@ -32,7 +32,7 @@
     $distance: 0.3;
 
     $test: generate-tetrad($seed, $distance);
-    @include assert-equal(hue(map-get($test, '$secondary-b')), hue(complement($seed)) + ($distance * 90deg),
+    @include assert-equal(hue(map-get($test, 'secondary-b')), hue(complement($seed)) + ($distance * 90deg),
       'Returns a secondary-b hue that is the correct angle away from complementary');
   }
   
@@ -44,8 +44,8 @@
     $distance: 0.3;
     
     $test: generate-tetrad($seed, $distance);
-    $secondary-a: hue(map-get($test, '$secondary-a'));
-    $primary: hue(map-get($test, '$primary'));
+    $secondary-a: hue(map-get($test, 'secondary-a'));
+    $primary: hue(map-get($test, 'primary'));
     
     // adjust if $secondary-a might wrap around
     @if $primary > (360 - 90 * $distance) and $primary <= 360 {
@@ -66,8 +66,8 @@
     $distance: 0.3;
     
     $test: generate-tetrad($seed, $distance);
-    $secondary-b: hue(map-get($test, '$secondary-b'));
-    $complementary: hue(map-get($test, '$complementary'));
+    $secondary-b: hue(map-get($test, 'secondary-b'));
+    $complementary: hue(map-get($test, 'complementary'));
     
     // adjust if $secondary-b might wrap around
     @if $complementary > (360 - 90 * $distance) and $complementary <= 360 {
