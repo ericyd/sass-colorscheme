@@ -1,6 +1,6 @@
 {
   "name": "sass-colorscheme",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Color scheme generator for plug-and-play use with Sass and SCSS stylesheets",
   "main": "colorscheme.scss",
   "scripts": {
