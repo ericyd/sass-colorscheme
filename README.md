@@ -23,8 +23,8 @@ $colorscheme: colorscheme($seed: $seed-color, $global: true, $scheme: 'mono');
 
 h1 {
     color: $primary; // #ffd040
-    background: $primary-lightest; // #ffefc0
-    border: 1px solid $primary-darkest; // #c09000
+    background: $primary--lightest; // #ffefc0
+    border: 1px solid $primary--darkest; // #c09000
 }
 ```
 Or, if variables are not global  
@@ -36,8 +36,8 @@ $colorscheme: colorscheme($seed: $seed-color, $global: false, $scheme: 'mono');
 
 h1 {
     color: map-get($colorscheme, 'primary'); // #ffd040
-    background: map-get($colorscheme, 'primary-lightest'); // #ffefc0
-    border: 1px solid map-get($colorscheme, 'primary-darkest'); // #c09000
+    background: map-get($colorscheme, 'primary--lightest'); // #ffefc0
+    border: 1px solid map-get($colorscheme, 'primary--darkest'); // #c09000
 }
 ```
 
